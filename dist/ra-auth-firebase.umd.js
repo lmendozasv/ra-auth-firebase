@@ -20,7 +20,7 @@
           if (auth) {
             console.log("2xx")
               var path, snapshot, profile;
-              path = config.admin.path + auth.user.uid;
+              path = config.admin.path + auth.uid;
               return firebase.database().ref(path).once('value').then((function ($await_8) {
                 console.log("3xx")
                   try {
