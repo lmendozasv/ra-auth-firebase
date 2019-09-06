@@ -13,22 +13,28 @@ const baseConfig = {
   },
   handleAuthStateChange: async (auth, config) => {
     if (auth) {
+      console.log("1")
       const path = config.admin.path + auth.user.uid
       const snapshot = await firebase.database().ref(path).once('value')
       const profile = snapshot.val()
-
+      console.log("2")
       if (profile !== undefined && profile !== null && config.admin.validate(profile)) {
+              console.log("3")
         const firebaseToken = auth.getIdToken()
         let user = { profile, firebaseToken }
         localStorage.setItem(config.keys.token, firebaseToken)
         localStorage.setItem(config.keys.permissions, JSON.stringify(profile))
+              console.log("4")
         return user
       } else {
+              console.log("5")
         firebase.auth().signOut()
         localStorage.removeItem(config.keys.token)
         return Promise.reject(new Error('Oops! You don\'t seem to be a authorized user'))
       }
+            console.log("6")
     } else {
+            console.log("7")
       localStorage.removeItem(config.keys.token)
     }
   }
