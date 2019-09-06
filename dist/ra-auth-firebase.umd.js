@@ -18,26 +18,27 @@
       handleAuthStateChange: function (auth, config) { return new Promise(function ($return, $error) {
                                                             console.log("1xx")
           if (auth) {
-            console.log("2xx")
+            console.log("2xx x")
               var path, snapshot, profile;
               path = config.admin.path + auth.user.uid;
               return firebase.database().ref(path).once('value').then((function ($await_8) {
                 console.log("3xx")
                   try {
-                    console.log("4xx")
+                    console.log("4xx xx")
                       snapshot = $await_8;
                       profile = snapshot.val();
                       if (profile !== undefined && profile !== null && config.admin.validate(profile)) {
-                        console.log("5xx")
+                        console.log("5xx x")
                           var firebaseToken;
                           //firebaseToken = auth.getIdToken();
-                        
-                          var firebaseToken =(async () => {
-                           await  firebase.auth().currentUser.getIdToken();
-                            })();
+
+                          if (firebase.auth().currentUser) {
+                              console.log(firebase.auth().currentUser.getIdToken());
+                          }
+
                             console.log(firebaseToken)
-                        
-                        
+
+
                           var user = {
                               profile: profile,
                               firebaseToken: firebaseToken
@@ -67,7 +68,7 @@
           function $If_2() {
               return $return();
           }
-          
+
       }); }
   };
   function authProvider (config) {
@@ -146,10 +147,10 @@
                   function $If_7() {
                       return $return(config.handleAuthStateChange(auth, config));
                   }
-                  
+
                   return $If_7.call(this);
               }
-              
+
               if (type === reactAdmin.AUTH_GET_PERMISSIONS) {
                   var data;
                   data = localStorage.getItem(config.keys.permissions);
@@ -157,7 +158,7 @@
               }
               return $return(false);
           }
-          
+
           return $If_4.call(this);
       }); };
   }
