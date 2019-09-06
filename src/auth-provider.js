@@ -30,7 +30,7 @@ const baseConfig = {
               console.log("5")
         firebase.auth().signOut()
         localStorage.removeItem(config.keys.token)
-        return Promise.reject(new Error('Oops! You don\'t seem to be a authorized user'))
+        return Promise.reject(new Error('Oops! You don\'t seem to be a authorized user lm'))
       }
             console.log("6")
     } else {
