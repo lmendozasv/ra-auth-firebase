@@ -33,7 +33,7 @@
                           //firebaseToken = auth.getIdToken();
                         
                           var firebaseToken =(async () => {
-                            await  auth.instance.currentUser().getIdToken();
+                           await  firebase.auth().currentUser.getIdToken();
                             })();
                             console.log(firebaseToken)
                         
