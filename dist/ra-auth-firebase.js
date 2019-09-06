@@ -14,14 +14,19 @@ var baseConfig = {
         token: 'firebase'
     },
     handleAuthStateChange: function (auth, config) { return new Promise(function ($return, $error) {
+        console.log("1x")
         if (auth) {
+                    console.log("2x")
             var path, snapshot, profile;
             path = config.admin.path + auth.uid;
             return firebase.database().ref(path).once('value').then((function ($await_8) {
+                                    console.log("3x")
                 try {
+                                        console.log("4x")
                     snapshot = $await_8;
                     profile = snapshot.val();
                     if (profile !== undefined && profile !== null && config.admin.validate(profile)) {
+                                            console.log("5x")
                         var firebaseToken;
                         firebaseToken = auth.getIdToken();
                         var user = {
@@ -30,18 +35,24 @@ var baseConfig = {
                         };
                         localStorage.setItem(config.keys.token, firebaseToken);
                         localStorage.setItem(config.keys.permissions, JSON.stringify(profile));
+                                            console.log("6x")
                         return $return(user);
                     } else {
+                                            console.log("7x")
                         firebase.auth().signOut();
                         localStorage.removeItem(config.keys.token);
                         return $return(Promise.reject(new Error('Oops! You don\'t seem to be a authorized user')));
                     }
+                                        console.log("8x")
                     return $If_2.call(this);
                 } catch ($boundEx) {
+                                        console.log("9x")
+                                        console.log($boundEx)
                     return $error($boundEx);
                 }
             }).bind(this), $error);
         } else {
+                                                    console.log("10x")
             localStorage.removeItem(config.keys.token);
             return $If_2.call(this);
         }
