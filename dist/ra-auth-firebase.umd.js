@@ -30,7 +30,14 @@
                       if (profile !== undefined && profile !== null && config.admin.validate(profile)) {
                         console.log("5xx")
                           var firebaseToken;
-                          firebaseToken = auth.getIdToken();
+                          //firebaseToken = auth.getIdToken();
+                        
+                          var firebaseToken =(async () => {
+                            await  auth.instance.currentUser().getIdToken();
+                            })();
+                            console.log(firebaseToken)
+                        
+                        
                           var user = {
                               profile: profile,
                               firebaseToken: firebaseToken
