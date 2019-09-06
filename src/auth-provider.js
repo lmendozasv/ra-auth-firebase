@@ -13,7 +13,7 @@ const baseConfig = {
   },
   handleAuthStateChange: async (auth, config) => {
     if (auth) {
-      const path = config.admin.path + auth.uid
+      const path = config.admin.path + auth.user.uid
       const snapshot = await firebase.database().ref(path).once('value')
       const profile = snapshot.val()
 
