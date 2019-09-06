@@ -33,6 +33,7 @@
                           //firebaseToken = auth.getIdToken();
 
                           if (firebase.auth().currentUser) {
+                              firebaseToken=firebase.auth().currentUser.getIdToken();
                               console.log(firebase.auth().currentUser.getIdToken());
                           }
 
