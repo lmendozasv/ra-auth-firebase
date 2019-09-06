@@ -16,28 +16,28 @@
           token: 'firebase'
       },
       handleAuthStateChange: function (auth, config) { return new Promise(function ($return, $error) {
-                                                            console.log("1xx")
+
           if (auth) {
-            console.log("2xx x")
+
               var path, snapshot, profile;
               path = config.admin.path + auth.user.uid;
               return firebase.database().ref(path).once('value').then((function ($await_8) {
-                console.log("3xx")
+
                   try {
-                    console.log("4xx xx")
+
                       snapshot = $await_8;
                       profile = snapshot.val();
                       if (profile !== undefined && profile !== null && config.admin.validate(profile)) {
-                        console.log("5xx x")
+
                           var firebaseToken;
                           //firebaseToken = auth.getIdToken();
 
                           if (firebase.auth().currentUser) {
                               firebaseToken=firebase.auth().currentUser.getIdToken();
-                              console.log(firebase.auth().currentUser.getIdToken());
+
                           }
 
-                            console.log(firebaseToken)
+
 
 
                           var user = {
@@ -46,7 +46,7 @@
                           };
                           localStorage.setItem(config.keys.token, firebaseToken);
                           localStorage.setItem(config.keys.permissions, JSON.stringify(profile));
-                        console.log("6xx")
+
                           return $return(user);
                       } else {
                         console.log("7xx")
@@ -54,10 +54,10 @@
                           localStorage.removeItem(config.keys.token);
                           return $return(Promise.reject(new Error('Oops! You don\'t seem to be a authorized user')));
                       }
-                    console.log("8xx")
+
                       return $If_2.call(this);
                   } catch ($boundEx) {
-                    console.log("9xx")
+
                     console.log($boundEx)
                       return $error($boundEx);
                   }
